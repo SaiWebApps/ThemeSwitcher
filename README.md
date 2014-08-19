@@ -1,7 +1,7 @@
 Sublime Text 3 - Theme Switcher Plugin
 ===========================================
 
-<b> Requirements </b>
+<h4> High-Level Requirements </h4>
 1. When the user presses "CTRL" + "ALT" + "T" on the keyboard, Sublime's current theme shall change. <br>
 	1a. The user shall specify the theme paths and their order in a list global variable within the plugin.
 	1b. If a user-specified theme cannot be found, the plugin should try to install it from 
@@ -9,7 +9,11 @@ Sublime Text 3 - Theme Switcher Plugin
 
 2. All Python code shall conform to PEP 8. <br>
 
-<b> Development Plan </b>
+<h4> Prerequisites </h4>
+1. Python 2.7 or up <br>
+2. Sublime Text 3
+
+<h4> Development Plan </h4>
 <table>
 	<tr>
 		<th> Task </th>
@@ -36,3 +40,17 @@ Sublime Text 3 - Theme Switcher Plugin
 		<td> ? </td>
 	</tr>
 </table>
+
+<h4> Keyboard Mapping in Sublime </h4>
+In Sublime's main menu, click "Preferences -> Key Bindings - User." <br>
+Then copy-and-paste the following information:
+
+<pre>
+[
+	{
+		"keys": ["ctrl+alt+t"], "command": "switch_theme"
+	}
+]
+</pre>
+
+Essentially, I am mapping "CTRL+ALT+T" to the SwitchThemeCommand
