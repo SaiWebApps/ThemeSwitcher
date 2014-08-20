@@ -28,39 +28,38 @@ class SwitchThemeCommand(sublime_plugin.TextCommand):
 			Return the old theme value and the new theme value. 
 
 			Parameters:
-			object_settings --> Sublime's global settings; 1 is color_scheme
+				object_settings --> Sublime's global settings for the current tab; 1 is color_scheme
 		"""
 
+		# Get the current theme.
 		string_current_theme_name = object_settings.get(THEME_KEY_IN_SETTINGS)
-		return_values_dict = {}
-		return_values_dict[OLD_THEME_NAME_KEY] = string_current_theme_name
+		# Dict to store the old theme name and the new theme name.
+		dict_return_values = {}
+		# Save old theme.
+		dict_return_values[OLD_THEME_NAME_KEY] = string_current_theme_name
 
 		try:
 			int_current_theme_index_in_THEMES_LIST = THEMES_LIST.index(string_current_theme_name)
 	
-			# If current_theme_index is 4, (4+1) % 5 = 0 - we wrap around to beginning from end.
+			# Let the length of THEMES_LIST be 5.
+			# If int_current_theme_index is 4, then wrap around from the end of the list to the beginning (to index 0).
 			int_next_theme_index_in_THEMES_LIST = (int_current_theme_index_in_THEMES_LIST + 1) % len(THEMES_LIST)
 	
 			# If current theme is Twilight, then the next theme would be Monokai.
 			# If current theme is Cobalt, then the next theme would be Blackboard.
 			string_next_theme_name = THEMES_LIST[int_next_theme_index_in_THEMES_LIST]
-
-			# Save new theme value in return_values dict, and update theme in settings.
-			return_values_dict[NEW_THEME_NAME_KEY] = string_next_theme_name
-			object_settings.set(THEME_KEY_IN_SETTINGS, string_next_theme_name)
-
 		except:
-			# 2 sources of error:
-			#   a. Current theme is not THEMES_LIST.
-			#	b. Next theme's name is invalid (no such theme exists).
-			# 
-			# How to handle:
-			# 	a. Reset theme to DEFAULT_THEME.
-			#	b. Map NEW_THEME_NAME_KEY to DEFAULT_THEME in return_values_dict.
-			object_settings.set(THEME_KEY_IN_SETTINGS, DEFAULT_THEME)
-			return_values_dict[NEW_THEME_NAME_KEY] = DEFAULT_THEME
-		
-		return return_values_dict
+			# 2 things could have gone wrong in the try block:
+			# 	1. Current theme is not in THEMES_LIST for whatever reason.
+			#	2. Next theme is invalid.
+			# Response: Set the theme to the default theme, which here is THEMES_LIST[0].
+			string_next_theme_name = DEFAULT_THEME
+
+		# Transition to the next theme.
+		object_settings.set(THEME_KEY_IN_SETTINGS, string_next_theme_name)
+		# Save the new theme to dict_return_values and return the dict.
+		dict_return_values[NEW_THEME_NAME_KEY] = string_next_theme_name
+		return dict_return_values
 
 	def run(self, edit):
 

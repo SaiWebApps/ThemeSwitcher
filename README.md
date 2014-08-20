@@ -3,7 +3,7 @@ Sublime Text 3 - Theme Switcher Plugin
 
 <h4> High-Level Requirements </h4>
 1. When the user presses "CTRL" + "ALT" + "T" on the keyboard, Sublime's current theme shall change. <br>
-	1a. The user shall specify the theme paths and their order in a list global variable within the plugin.
+	1a. The user shall specify the theme paths and their order in a list global variable within the plugin. <br>
 	1b. If a user-specified theme cannot be found, the plugin should try to install it from 
 	<a href="http://colorsublime.com/">http://colorsublime.com/</a>.
 
